@@ -9,8 +9,6 @@
 namespace TpLogger;
 use Monolog\Logger as MonoLogger;
 use Monolog\Handler\StreamHandler;
-
-use Monolog\Handler\HandlerInterface;
 use ReflectionClass;
 
 class Logger{
@@ -76,17 +74,16 @@ class Logger{
     }
 
     /**
-     * @param $message
+     * 调用Monolog/Logger的方法
+     * @param $name
+     * @param $params
      */
-    public static function addDebug($message){
-        self::$logger->addDebug($message);
+    public static function __callStatic($name, $params){
+        $class = new ReflectionClass(self::$logger);
+        if($class->hasMethod($name)){
+            self::$logger->$name($params[0],$params[1]);
+        }else{
+            throw new \BadMethodCallException;
+        }
     }
-
-    /**
-     * @param $message
-     */
-    public static function addError($message){
-        self::$logger->addError($message);
-    }
-
 }

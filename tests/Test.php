@@ -22,8 +22,9 @@ $logger->init(array(
         'level' => Logger::ERROR,
     ),
 ));
-$logger->addDebug('hello');
-$logger->addError('i am an error');
+//$logger->addDebug('hello');
+$logger::addError('i am an error', array("lines"));
+$logger::addWarning('i am an error', array("lines"));
 //use Monolog\Logger;
 //use Monolog\Handler\StreamHandler;
 //
