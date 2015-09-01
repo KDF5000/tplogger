@@ -1,0 +1,17 @@
+{
+    "name": "kdf5000/tplogger",
+    "description": "a log using monolog for thinkphp",
+    "require": {
+        "monolog/monolog": "~1"
+    },
+    "authors": [
+        {
+            "name": "KDF5000",
+            "email": "kdf5000@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"TpLogger\\": "src/TpLogger"}
+    }
+}
