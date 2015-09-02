@@ -13,8 +13,8 @@ use ReflectionClass;
 
 class Logger{
 
-    const DEFAULT_HANLDER = 'StreamHandler'; //Ä¬ÈÏµÄHandler
-    const DEFAULT_PATH = 'my_log.log';  //Ä¬ÈÏlog´æ´¢ÎÄ¼þ
+    const DEFAULT_HANLDER = 'StreamHandler'; //é»˜è®¤çš„handler
+    const DEFAULT_PATH = 'default_log';  //é»˜è®¤çš„logæ–‡ä»¶
 
     const DEBUG = MonoLogger::DEBUG;
     const INFO = MonoLogger::INFO;
@@ -25,10 +25,6 @@ class Logger{
     const ALERT = MonoLogger::ALERT;
     const EMERGENCY = MonoLogger::EMERGENCY;
 
-    /**
-     * @var HandlerInterface
-     */
-    static private $handler;
     /**
      * @var \Monolog\Logger
      */
@@ -64,7 +60,7 @@ class Logger{
         if(empty($config)){
             self::$logger->pushHandler(new StreamHandler(self::DEFAULT_PATH, self::DEBUG));
         }else{
-            //Í¨¹ýÅäÖÃ×Ô¶¯ÉèÖÃ
+            //é€šè¿‡è®¾ç½®è‡ªåŠ¨é…ç½®
             foreach($config as $key => $val){
                 $class = new ReflectionClass('Monolog\\Handler\\'.$key);
                 $handler = $class->newInstanceArgs(array_values($val));
@@ -74,7 +70,7 @@ class Logger{
     }
 
     /**
-     * µ÷ÓÃMonolog/LoggerµÄ·½·¨
+     *è°ƒç”¨Monolog/Loggerçš„æ–¹æ³•
      * @param $name
      * @param $params
      */
