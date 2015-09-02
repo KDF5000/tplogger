@@ -3,7 +3,7 @@
     "description": "a log using monolog for thinkphp",
     "require": {
         "monolog/monolog": "~1",
-        "swiftmailer/swiftmailer": "@stable"
+        "swiftmailer/swiftmailer": "5.4.1"
     },
     "authors": [
         {
