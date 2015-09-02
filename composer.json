@@ -2,7 +2,8 @@
     "name": "kdf5000/tplogger",
     "description": "a log using monolog for thinkphp",
     "require": {
-        "monolog/monolog": "~1"
+        "monolog/monolog": "~1",
+        "swiftmailer/swiftmailer": "@stable"
     },
     "authors": [
         {
@@ -12,6 +13,9 @@
     ],
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": {"TpLogger\\": "src/TpLogger"}
+        "psr-4": {
+            "TpLogger\\": "src/TpLogger",
+            "Utils\\": "src/Utils"
+        }
     }
 }
