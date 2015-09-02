@@ -73,6 +73,17 @@ class Logger{
      *调用Monolog/Logger的方法
      * @param $name
      * @param $params
+     * <p>
+     * 可以使用下列的方法，level等级也越来越高
+     * addDebug
+     * addInfo
+     * addNotice
+     * addWarning
+     * addError
+     * addCritical
+     * addAlert
+     * addEmergency
+     * </p>
      */
     public static function __callStatic($name, $params){
         $class = new ReflectionClass(self::$logger);
