@@ -74,7 +74,7 @@ class Logger{
      * @param $name
      * @param $params
      * <p>
-     * 可以使用下列的方法，level等级也越来越高
+     * 可以使用下列的方法，level等级也越来越高,每个函数都有两个参数$message,array $context,其中$context默认array()
      * addDebug
      * addInfo
      * addNotice
@@ -88,7 +88,11 @@ class Logger{
     public static function __callStatic($name, $params){
         $class = new ReflectionClass(self::$logger);
         if($class->hasMethod($name)){
-            self::$logger->$name($params[0],$params[1]);
+            if(count($params) == 2){
+                self::$logger->$name($params[0],$params[1]);
+            }else{
+                self::$logger->$name($params[0]);
+            }
         }else{
             throw new \BadMethodCallException;
         }

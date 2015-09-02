@@ -9,26 +9,56 @@
 require '../vendor/autoload.php';
 
 use TpLogger\Logger;
+use Utils\ArgsUtil;
 
-$logger = new Logger();
-$logger->init(array(
-    "StreamHandler" => array(
-        'filename' => 'my_log_stream.log',
-        'level' => Logger::DEBUG,
-    ),
-    "RotatingFileHandler" => array(
-        'filename' => 'my_log_rotating.log',
-        'maxfiles' => 0,
-        'level' => Logger::ERROR,
-    ),
-));
-//$logger->addDebug('hello');
-$logger::addError('i am an error', array("lines"));
-$logger::addWarning('i am an error', array("lines"));
-//use Monolog\Logger;
-//use Monolog\Handler\StreamHandler;
+class TestLogger extends PHPUnit_Framework_TestCase{
+
+    private $config = array(
+        "StreamHandler" => array(
+            'log_path' => 'my_log_stream.log',
+            'level' => Logger::DEBUG,
+        ),
+        "RotatingFileHandler" => array(
+            'log_path' => 'my_log_rotating.log',
+            'maxfiles' => 0,
+            'level' => Logger::ERROR,
+        ),
+    );
+
+    public function testLogger(){
+        Logger::init($this->config);
+        Logger::addDebug('i am a debug', array("name"=>'kdf','age'=>23));
+        Logger::addError('i am an error', array("lines"));
+    }
+
+
+    public function testMailHandler(){
+//        $transport = Swift_SmtpTransport::newInstance('smtp.163.com', 587, 'ssl')
+//            ->setUsername('zhongguohaolaoban@163.com')
+//            ->setPassword('sqjeobpiththsgdh');
+//        $mailer = Swift_Mailer::newInstance($transport);
 //
-//$logger = new Logger('test');
-//$logger->pushHandler(new StreamHandler('demo.txt'), Logger::DEBUG);
+////        // Create a message
+//        $message = Swift_Message::newInstance('Wonderful Subject')
+//            ->setFrom(array('zhongguohaolaoban@163.com' => 'Boss'))
+//            ->setTo(array('kdf5000@163.com', '1781022885@qq.com' => 'A name'))
+//            ->setBody('测试邮件');
 //
-//$logger->addDebug('nihao');
+//        // Send the message
+//        $result = $mailer->send($message);
+//        echo $result;
+        $mailer = ArgsUtil::buildSslMailer('zhongguohaolaoban@163.com','sqjeobpiththsgdh');
+        $message = ArgsUtil::buildMessageTp(array('zhongguohaolaoban@163.com' => '好老板'),array('kdf5000@163.com'));
+        Logger::init(array(
+            'SwiftMailerHandler'=>array(
+                'mailer'=>$mailer,
+                'message'=>$message
+            )
+        ));
+
+        Logger::addError('mailer error');
+
+    }
+
+
+}
